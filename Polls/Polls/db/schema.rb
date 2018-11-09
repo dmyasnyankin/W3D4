@@ -10,12 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20181108232340) do
+ActiveRecord::Schema.define(version: 20181109005440) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "answerchoices", force: :cascade do |t|
     t.string "answerchoice", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "question_id"
     t.index ["answerchoice"], name: "index_answerchoices_on_answerchoice"
   end
 
@@ -23,6 +27,7 @@ ActiveRecord::Schema.define(version: 20181108232340) do
     t.string "title", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
     t.index ["title"], name: "index_polls_on_title"
   end
 
@@ -30,12 +35,15 @@ ActiveRecord::Schema.define(version: 20181108232340) do
     t.string "text", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "poll_id"
     t.index ["text"], name: "index_questions_on_text"
   end
 
   create_table "responses", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "answerchoice_id", null: false
+    t.integer "respondent_id", null: false
   end
 
   create_table "users", force: :cascade do |t|
